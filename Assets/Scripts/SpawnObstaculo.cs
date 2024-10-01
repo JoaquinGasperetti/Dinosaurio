@@ -4,25 +4,44 @@ using UnityEngine;
 
 public class SpawnObstaculo : MonoBehaviour
 {
-    // Start is called before the first frame update
+    
+    [SerializeField] private GameObject[] obstaculoPrefab;
+    public float SpawnTimeObstaculo = 2f;
+    public float VelocidadObstaculo = 1f;
 
-    public GameObject obstaculo;
-    public Vector2 spawnPos;
-    public float delay = 2f;
-    public float repeatRate = 2;
+    private float TiempoHastaSpawnear;
+
+
+
+
     void Start()
     {
-        InvokeRepeating("SpawnObstacle", delay, repeatRate);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        SpawnLoop();
     }
 
-    void SpawnObstacle()
+    private void SpawnLoop()
     {
-        Instantiate(obstaculo, spawnPos, obstaculo.transform);
+        TiempoHastaSpawnear += Time.deltaTime;
+
+        if (TiempoHastaSpawnear >= SpawnTimeObstaculo)
+        {
+            Spawn();
+            TiempoHastaSpawnear = 0f;
+        }
     }
+
+    private void Spawn()
+    {
+        GameObject obstaculoASpawnear = obstaculoPrefab[Random.Range(0, obstaculoPrefab.Length)];
+        GameObject ObstaculoSpawneado = Instantiate(obstaculoASpawnear, transform.position, Quaternion.identity);
+        Rigidbody2D RBobstaculo = ObstaculoSpawneado.GetComponent<Rigidbody2D>();
+        RBobstaculo.velocity = Vector2.left * VelocidadObstaculo;
+    }
+
 }
