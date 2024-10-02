@@ -4,27 +4,16 @@ using UnityEngine;
 
 public class SpawnObstaculo : MonoBehaviour
 {
-    
     [SerializeField] private GameObject[] obstaculoPrefab;
     public float SpawnTimeObstaculo = 2f;
     public float VelocidadObstaculo = 1f;
-
     private float TiempoHastaSpawnear;
-
-
-
-
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
         SpawnLoop();
     }
-
     private void SpawnLoop()
     {
         TiempoHastaSpawnear += Time.deltaTime;
@@ -35,7 +24,6 @@ public class SpawnObstaculo : MonoBehaviour
             TiempoHastaSpawnear = 0f;
         }
     }
-
     private void Spawn()
     {
         GameObject obstaculoASpawnear = obstaculoPrefab[Random.Range(0, obstaculoPrefab.Length)];
